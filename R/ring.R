@@ -57,7 +57,7 @@ ring <- function(..., coefring = m2_coefrings(), order = m2_termorders(),
 ) {
 
   # grab args
-  x <- list(vars = lapply(pryr::dots(...), eval, envir = parent.frame()))
+  x <- list(vars = lapply(dots(...), eval, envir = parent.frame()))
   otherArgs <- as.list(match.call(expand.dots = FALSE))[-c(1:2)]
 
   # eval
@@ -79,7 +79,7 @@ ring. <- function(..., coefring = m2_coefrings(), order = m2_termorders(),
 ) {
 
   # grab args
-  x <- list(vars = lapply(pryr::dots(...), eval, envir = parent.frame()))
+  x <- list(vars = lapply(dots(...), eval, envir = parent.frame()))
   otherArgs <- as.list(match.call(expand.dots = FALSE))[-c(1:2)]
 
   # eval
@@ -282,7 +282,7 @@ print.m2_polynomialring <- function(x, ...){
     paste(m2_meta(x, "vars"), collapse = ","),
     m2_meta(x, "order")
   )
-  cat(s)
+  cat(s, "\n", sep = "")
 
-  invisible(s)
+  invisible(x)
 }

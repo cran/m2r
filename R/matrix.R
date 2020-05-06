@@ -9,7 +9,7 @@
 #' @param code return only the M2 code? (default: \code{FALSE})
 #' @param x formal argument for print method
 #' @param ... ...
-#' @return a reference to a Macaulay2 ring
+#' @return an object of class \code{m2_matrix}
 #' @name m2_matrix
 #' @examples
 #'
@@ -18,7 +18,7 @@
 #' ##### basic usage
 #' ########################################
 #'
-#' (mat <- m2_matrix(matrix(c(1,2,3,4,5,6), nrow = 3, ncol = 2))
+#' (mat <- m2_matrix(matrix(c(1,2,3,4,5,6), nrow = 3, ncol = 2)))
 #' m2_matrix(matrix(c(1,2,3,4,5,6), nrow = 3, ncol = 2))
 #'
 #' m2_name(mat)
@@ -30,7 +30,7 @@
 #' ########################################
 #'
 #' ring("x", "y", "z", coefring = "QQ")
-#' mat <- matrix(mp(c("x","y","x+y","y-2","x-3","y-z")), nrow = 2, ncol = 3)
+#' (mat <- matrix(mp(c("x","y","x+y","y-2","x-3","y-z")), nrow = 2, ncol = 3))
 #' m2_matrix(mat, code = TRUE)
 #' m2_matrix(mat)
 #' # the above is an mpoly problem, not a m2r problem
@@ -84,12 +84,16 @@ m2_matrix <- function(mat, ring, name, code = FALSE) {
 m2_matrix. <- function(mat, ring, name, code = FALSE) {
 
   # arg check
-  if(!all( m2_exists(vars(mat)) )) {
-    stop(sprintf(
-      "all variables (%s) in mat must be defined in M2.",
-      paste(vars(mat), collapse = ", ")
-    ), call. = FALSE)
-  }
+  # this errors with vars() in mpoly 1.1.0.903 (at least)
+  # in that version, vars requires the input be a mpoly or mpolyList
+  # here, it may be (e.g.) a numeric matrix
+  # removed until mpoly implements better data structures
+  # if ( !all( m2_exists(vars(mat)) )) {
+  #   stop(sprintf(
+  #     "all variables (%s) in mat must be defined in M2.",
+  #     paste(vars(mat), collapse = ", ")
+  #   ), call. = FALSE)
+  # }
 
   # prep ring string
   ring_str <- if (missing(ring)) "" else paste0("*1_", m2_name(ring))
@@ -104,7 +108,10 @@ m2_matrix. <- function(mat, ring, name, code = FALSE) {
 
   # prepare matrix string
   mat2 <- matrix(
-    vapply(mpolyList_to_m2_str(mat), function(.) sprintf("(%s)%s", ., ring_str), character(1)),
+    vapply(
+      mpolyList_to_m2_str(mat),
+      function(.) sprintf("(%s)%s", ., ring_str), character(1)
+    ),
     nrow(mat), ncol(mat)
   )
   matrix_str <- listify_mat(mat2)
@@ -274,7 +281,7 @@ print.m2_matrix <- function(x, ...){
     paste(m2_meta(r, "vars"), collapse = ","),
     m2_meta(r, "order")
   )
-  cat(s)
+  cat(s, "\n")
 
   invisible(x)
 }

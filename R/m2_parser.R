@@ -230,6 +230,14 @@ m2_parse_internal <- function(tokens, start = 1) {
         i <- i + 3
       }
 
+    } else if (length(tokens) > i && tokens[i+1] == ".") { # is an unusual float
+
+      ret <- m2_structure(
+        as.double(paste0(tokens[i], ".", str_replace(tokens[i+2], "p[0-9]+", ""))),
+        m2_class = "m2_float"
+      )
+      i <- i + 3
+
     } else { # positive integer
 
       if (get_m2_gmp()) {
@@ -628,6 +636,7 @@ print.m2_integer <- function(x, ...) {
   if(inherits(x, "bigz")) return(get("print.bigz", envir = asNamespace("gmp"))(x))
   class(x) <- "numeric"
   print(x)
+  invisible(x)
 }
 
 
@@ -636,6 +645,7 @@ print.m2_integer <- function(x, ...) {
 print.m2_float <- function(x, ...) {
   class(x) <- "numeric"
   print(x)
+  invisible(x)
 }
 
 
@@ -644,6 +654,7 @@ print.m2_float <- function(x, ...) {
 print.m2_complex <- function(x, ...) {
   class(x) <- "complex"
   print(x)
+  invisible(x)
 }
 
 
@@ -652,12 +663,14 @@ print.m2_complex <- function(x, ...) {
 print.m2_string <- function(x, ...) {
   class(x) <- "character"
   print(x)
+  invisible(x)
 }
 
 #' @rdname m2_parser
 #' @export
 print.m2_boolean <- function(x, ...) {
   print(unclass(x))
+  invisible(x)
 }
 
 
@@ -666,6 +679,7 @@ print.m2_boolean <- function(x, ...) {
 print.m2_list <- function(x, ...) {
   cat("M2 List\n")
   print(unclass(x))
+  invisible(x)
 }
 
 
@@ -674,6 +688,7 @@ print.m2_list <- function(x, ...) {
 print.m2_array <- function(x, ...) {
   cat("M2 Array\n")
   print(unclass(x))
+  invisible(x)
 }
 
 
@@ -682,6 +697,7 @@ print.m2_array <- function(x, ...) {
 print.m2_sequence <- function(x, ...) {
   cat("M2 Sequence\n")
   print(unclass(x))
+  invisible(x)
 }
 
 
@@ -698,6 +714,7 @@ print.m2_symbol <- function(x, ...) {
 print.m2_option <- function(x, ...) {
   cat("M2 Option\n")
   cat(x[[1]], "=>", x[[2]])
+  invisible(x)
 }
 
 
@@ -706,6 +723,7 @@ print.m2_option <- function(x, ...) {
 print.m2_hashtable <- function(x, ...) {
   cat("M2 HashTable\n")
   print(unclass(x))
+  invisible(x)
 }
 
 #' @rdname m2_parser
@@ -713,6 +731,7 @@ print.m2_hashtable <- function(x, ...) {
 print.m2_module <- function(x, ...) {
   cat("M2 Module\n")
   print(unclass(x))
+  invisible(x)
 }
 
 

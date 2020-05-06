@@ -2,25 +2,21 @@
 #'
 #' Compute a Grobner basis with Macaulay2
 #'
-#' \code{gb} uses nonstandard evaluation; \code{gb_} is the standard
-#' evaluation equivalent.
+#' \code{gb} uses nonstandard evaluation; \code{gb_} is the standard evaluation
+#' equivalent.
 #'
-#' @param x a character vector of polynomials to be parsed by
-#'   \code{\link{mp}}, a \code{mpolyList} object, an
-#'   \code{\link{ideal}} or pointer to an ideal
+#' @param x a character vector of polynomials to be parsed by [mp()], a
+#'   \code{mpolyList} object, an [ideal()] or pointer to an ideal
 #' @param control a list of options, see examples
-#' @param raw_chars if \code{TRUE}, the character vector will not be
-#'   parsed by \code{\link{mp}}, saving time (default:
-#'   \code{FALSE}). the down-side is that the strings must be
-#'   formated for M2 use directly, as opposed to for
-#'   \code{\link{mp}}. (e.g. \code{"x*y+3"} instead of \code{"x y +
-#'   3"})
+#' @param raw_chars if \code{TRUE}, the character vector will not be parsed by
+#'   [mp()], saving time (default: \code{FALSE}). the down-side is that the
+#'   strings must be formated for M2 use directly, as opposed to for [mp()].
+#'   (e.g. \code{"x*y+3"} instead of \code{"x y + 3"})
 #' @param code return only the M2 code? (default: \code{FALSE})
 #' @param ... ...
-#' @return an \code{\link{mpolyList}} object of class
-#'   \code{m2_grobner_basis} or a \code{m2_grobner_basis_pointer}
-#'   pointing to the same
-#' @seealso \code{\link{mp}}, \code{\link{use_ring}}
+#' @return an \code{mpolyList} object of class \code{m2_grobner_basis} or a
+#'   \code{m2_grobner_basis_pointer} pointing to the same. See [mpolyList()].
+#' @seealso [mp()], [use_ring()]
 #' @name gb
 #' @examples
 #'
@@ -120,7 +116,7 @@
 gb <- function(..., control = list(), raw_chars = FALSE, code = FALSE) {
 
   # grab args
-  x <- list(x = lapply(pryr::dots(...), eval, envir = parent.frame()))
+  x <- list(x = lapply(dots(...), eval, envir = parent.frame()))
   if(is.list(x) && (length(x) == 1) && is.m2_ideal(x[[c(1,1)]])) x <- x[[1]]
   if(is.list(x) && (length(x) == 1) && is.m2_ideal_pointer(x[[c(1,1)]])) x <- x[[1]]
   otherArgs <- as.list(match.call(expand.dots = FALSE))[-c(1:2)]
@@ -143,7 +139,7 @@ gb <- function(..., control = list(), raw_chars = FALSE, code = FALSE) {
 gb. <- function(..., control = list(), raw_chars = FALSE, code = FALSE) {
 
   # grab args
-  x <- list(x = lapply(pryr::dots(...), eval, envir = parent.frame()))
+  x <- list(x = lapply(dots(...), eval, envir = parent.frame()))
   if(is.list(x) && (length(x) == 1) && is.m2_ideal(x[[c(1,1)]])) x <- x[[1]]
   if(is.list(x) && (length(x) == 1) && is.m2_ideal_pointer(x[[c(1,1)]])) x <- x[[1]]
   otherArgs <- as.list(match.call(expand.dots = FALSE))[-c(1:2)]

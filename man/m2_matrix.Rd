@@ -45,7 +45,7 @@ on the M2 side}
 \item{...}{...}
 }
 \value{
-a reference to a Macaulay2 ring
+an object of class \code{m2_matrix}
 }
 \description{
 Create a new matrix in Macaulay2
@@ -57,7 +57,7 @@ Create a new matrix in Macaulay2
 ##### basic usage
 ########################################
 
-(mat <- m2_matrix(matrix(c(1,2,3,4,5,6), nrow = 3, ncol = 2))
+(mat <- m2_matrix(matrix(c(1,2,3,4,5,6), nrow = 3, ncol = 2)))
 m2_matrix(matrix(c(1,2,3,4,5,6), nrow = 3, ncol = 2))
 
 m2_name(mat)
@@ -69,7 +69,7 @@ m2(sprintf("class(\%s)", m2_name(mat)))
 ########################################
 
 ring("x", "y", "z", coefring = "QQ")
-mat <- matrix(mp(c("x","y","x+y","y-2","x-3","y-z")), nrow = 2, ncol = 3)
+(mat <- matrix(mp(c("x","y","x+y","y-2","x-3","y-z")), nrow = 2, ncol = 3))
 m2_matrix(mat, code = TRUE)
 m2_matrix(mat)
 # the above is an mpoly problem, not a m2r problem

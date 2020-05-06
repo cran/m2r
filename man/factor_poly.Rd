@@ -10,7 +10,7 @@ factor_poly(mpoly, code = FALSE)
 factor_poly.(mpoly, code = FALSE, ...)
 }
 \arguments{
-\item{mpoly}{a character parseable by \code{\link{mp}}, an
+\item{mpoly}{a character parseable by \code{\link[=mp]{mp()}}, an
 \code{mpoly} object, or a pointer to a polynomial in M2}
 
 \item{code}{return only the M2 code? (default: \code{FALSE})}
@@ -19,8 +19,8 @@ factor_poly.(mpoly, code = FALSE, ...)
 }
 \value{
 a named list with elements \code{factor} (an
-  \code{\link{mpolyList}} object) and \code{power}, an integer
-  vector
+\code{mpolyList} object) and \code{power}, an integer
+vector
 }
 \description{
 Factor a polynomial
@@ -43,6 +43,7 @@ factor_poly.("x^4 - y^4")
 ########################################
 
 # factor_poly accepts mpoly objects:
+# remember you must create the ring first!
 (p <- mp("x^4 - y^4"))
 factor_poly.(p)
 factor_poly(p)

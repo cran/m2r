@@ -2,15 +2,13 @@
 #'
 #' Create a new ideal in Macaulay2
 #'
-#' @param x a listing of polynomials. several formats are accepted,
-#'   see examples.
+#' @param x a listing of polynomials. several formats are accepted, see
+#'   examples.
 #' @param ring the referent ring in Macaulay2
-#' @param raw_chars if \code{TRUE}, the character vector will not be
-#'   parsed by \code{\link{mp}}, saving time (default:
-#'   \code{FALSE}). the down-side is that the strings must be
-#'   formated for M2 use directly, as opposed to for
-#'   \code{\link{mp}}. (e.g. \code{"x*y+3"} instead of \code{"x y +
-#'   3"})
+#' @param raw_chars if \code{TRUE}, the character vector will not be parsed by
+#'   [mp()], saving time (default: \code{FALSE}). the down-side is that the
+#'   strings must be formated for M2 use directly, as opposed to for [mp()].
+#'   (e.g. \code{"x*y+3"} instead of \code{"x y + 3"})
 #' @param code return only the M2 code? (default: \code{FALSE})
 #' @param ideal an ideal object of class \code{m2_ideal} or
 #'   \code{m2_ideal_pointer}
@@ -184,7 +182,7 @@
 ideal <- function(..., raw_chars = FALSE, code = FALSE) {
 
   # grab args
-  x <- list(x = lapply(pryr::dots(...), eval, envir = parent.frame()))
+  x <- list(x = lapply(dots(...), eval, envir = parent.frame()))
   otherArgs <- as.list(match.call(expand.dots = FALSE))[-c(1:2)]
 
   # eval
@@ -205,7 +203,7 @@ ideal <- function(..., raw_chars = FALSE, code = FALSE) {
 ideal. <- function(..., raw_chars = FALSE, code = FALSE) {
 
   # grab args
-  x <- list(x = lapply(pryr::dots(...), eval, envir = parent.frame()))
+  x <- list(x = lapply(dots(...), eval, envir = parent.frame()))
   otherArgs <- as.list(match.call(expand.dots = FALSE))[-c(1:2)]
 
   # eval
@@ -354,7 +352,7 @@ print.m2_ideal <- function(x, ...) {
   }
   cat("M2 Ideal of", s, with_gen, "\n")
   gens_strings <- print(m2_meta(x, "gens"), silent = TRUE)
-  cat(paste("<", paste(gens_strings, collapse = ",  "), ">"))
+  cat(paste("<", paste(gens_strings, collapse = ",  "), ">\n"))
   # cat(str_pad(gens_strings, nchar(gens_strings)+2, side = "left"), sep = "\n")
   invisible(x)
 

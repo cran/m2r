@@ -2,12 +2,12 @@
 #'
 #' Factor a polynomial
 #'
-#' @param mpoly a character parseable by \code{\link{mp}}, an
+#' @param mpoly a character parseable by [mp()], an
 #'   \code{mpoly} object, or a pointer to a polynomial in M2
 #' @param code return only the M2 code? (default: \code{FALSE})
 #' @param ... ...
 #' @return a named list with elements \code{factor} (an
-#'   \code{\link{mpolyList}} object) and \code{power}, an integer
+#'   \code{mpolyList} object) and \code{power}, an integer
 #'   vector
 #' @name factor_poly
 #' @examples
@@ -28,6 +28,7 @@
 #' ########################################
 #'
 #' # factor_poly accepts mpoly objects:
+#' # remember you must create the ring first!
 #' (p <- mp("x^4 - y^4"))
 #' factor_poly.(p)
 #' factor_poly(p)
